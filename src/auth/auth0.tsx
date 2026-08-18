@@ -1,6 +1,7 @@
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 import type { User } from '@auth0/auth0-react'
 import { createContext, useContext } from 'react'
+import { publicEnv } from '../env'
 
 export interface Auth0ContextType {
   isAuthenticated: boolean
@@ -16,11 +17,11 @@ const Auth0Context = createContext<Auth0ContextType | undefined>(undefined)
 export function Auth0Wrapper({ children }: { children: React.ReactNode }) {
   return (
     <Auth0Provider
-      domain={import.meta.env.VITE_AUTH0_DOMAIN}
-      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+      domain={publicEnv.auth0Domain}
+      clientId={publicEnv.auth0ClientId}
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+        audience: publicEnv.auth0Audience,
       }}
     >
       <Auth0ContextProvider>{children}</Auth0ContextProvider>

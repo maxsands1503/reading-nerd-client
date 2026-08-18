@@ -1,6 +1,9 @@
-Welcome to your new TanStack Start app!
+# Reading Nerd Client
 
-# Getting Started
+TanStack Start client for Reading Nerd, with Auth0 authentication and a Nitro
+server build suitable for Vercel.
+
+## Local development
 
 To run this application:
 
@@ -9,13 +12,49 @@ npm install
 npm run dev
 ```
 
-# Building For Production
+Copy `.env.example` to `.env` and provide:
+
+```dotenv
+VITE_AUTH0_DOMAIN=your-tenant.us.auth0.com
+VITE_AUTH0_CLIENT_ID=your-spa-client-id
+VITE_AUTH0_AUDIENCE=https://api.reading-nerd.local
+```
+
+These are public Auth0 application identifiers and are bundled into the browser.
+Never place an Auth0 client secret in a `VITE_` variable.
+
+## Production build
 
 To build this application for production:
 
 ```bash
 npm run build
+npm start
 ```
+
+The build uses Nitro and emits the server entry at `.output/server/index.mjs`.
+
+## Vercel deployment
+
+1. Import this repository into Vercel and select `reading-nerd-client` as the
+   root directory if the client is part of a larger repository.
+2. Confirm that the Framework Preset is **TanStack Start**. The checked-in
+   `vercel.json` also declares this preset.
+3. Add all three `VITE_AUTH0_*` variables above to Vercel for Production and
+   Preview environments. Use the same audience as the Auth0 API Identifier.
+4. Deploy using Vercel's detected install and build settings; no output-directory
+   override or SPA rewrite is required.
+
+In the Auth0 SPA application settings, add every deployed origin that will use
+authentication to:
+
+- Allowed Callback URLs
+- Allowed Logout URLs
+- Allowed Web Origins
+
+At minimum, add the final production origin, such as
+`https://reading-nerd.example.com`. Preview deployments need their own permitted
+origins as well.
 
 ## Styling
 
@@ -32,7 +71,6 @@ If you prefer not to use Tailwind CSS:
 
 ## Linting & Formatting
 
-
 This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
 
 ```bash
@@ -40,8 +78,6 @@ npm run lint
 npm run format
 npm run check
 ```
-
-
 
 ## Routing
 
@@ -60,7 +96,7 @@ Now that you have two routes you can use a `Link` component to navigate between 
 To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
 
 ```tsx
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router'
 ```
 
 Then anywhere in your JSX you can use it like so:
@@ -128,11 +164,11 @@ const getServerTime = createServerFn({
 // Use in a component
 function MyComponent() {
   const [time, setTime] = useState('')
-  
+
   useEffect(() => {
     getServerTime().then(setTime)
   }, [])
-  
+
   return <div>Server time: {time}</div>
 }
 ```
@@ -184,8 +220,6 @@ function PeopleComponent() {
 ```
 
 Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-
 
 # Learn More
 
