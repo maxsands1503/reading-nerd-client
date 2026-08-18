@@ -1,5 +1,6 @@
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
-import type { User } from '@auth0/auth0-react'
+import type { AppState, User } from '@auth0/auth0-react'
+import { useRouter } from '@tanstack/react-router'
 import { createContext, useContext } from 'react'
 import { publicEnv } from '../env'
 
@@ -14,14 +15,33 @@ export interface Auth0ContextType {
 
 const Auth0Context = createContext<Auth0ContextType | undefined>(undefined)
 
+function getSafeReturnTo(appState?: AppState): string {
+  const returnTo = appState?.returnTo
+
+  if (
+    typeof returnTo === 'string' &&
+    returnTo.startsWith('/') &&
+    !returnTo.startsWith('//')
+  ) {
+    return returnTo
+  }
+
+  return '/'
+}
+
 export function Auth0Wrapper({ children }: { children: React.ReactNode }) {
+  const router = useRouter()
+
   return (
     <Auth0Provider
       domain={publicEnv.auth0Domain}
       clientId={publicEnv.auth0ClientId}
       authorizationParams={{
-        redirect_uri: window.location.origin,
+        redirect_uri: `${window.location.origin}/login`,
         audience: publicEnv.auth0Audience,
+      }}
+      onRedirectCallback={(appState) => {
+        router.history.replace(getSafeReturnTo(appState))
       }}
     >
       <Auth0ContextProvider>{children}</Auth0ContextProvider>

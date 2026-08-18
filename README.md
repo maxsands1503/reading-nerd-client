@@ -56,6 +56,10 @@ At minimum, add the final production origin, such as
 `https://reading-nerd.example.com`. Preview deployments need their own permitted
 origins as well.
 
+The callback URL includes `/login`. For example, configure
+`https://reading-nerd.example.com/login` under Allowed Callback URLs, while
+Allowed Logout URLs and Allowed Web Origins use the origin without `/login`.
+
 ## Styling
 
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
