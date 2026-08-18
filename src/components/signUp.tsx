@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Button } from 'primereact/button';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
         
 
 export const SignUp = () => {
@@ -28,15 +29,16 @@ export const SignUp = () => {
 
       <pre>{JSON.stringify(user, null, 2)}</pre>
 
-      <Button onClick={logout} label="Logout"/>
+      <Button onClick={logout}>Logout</Button>
     </>
   ) : (
     <>
       {error && <p>Error: {error.message}</p>}
-
-      <Button onClick={signup} label="Signup"/>
-
-      <Button onClick={() => void login()} label="Login" />
+    <Stack spacing={2} direction="row">
+        <Button onClick={signup}>Sign Up</Button>
+        <Button onClick={() => void login()}>Login</Button>
+    </Stack>
+      
     </>
 );
 
