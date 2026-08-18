@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { PrimeReactProvider } from '@primereact/core'
 
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 import { Auth0Wrapper } from '../auth/auth0'
@@ -49,9 +50,11 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 function RootComponent() {
   return (
     <ClientOnly fallback={<div>Loading...</div>}>
-      <Auth0Wrapper>
-        <Outlet />
-      </Auth0Wrapper>
+      <PrimeReactProvider>
+        <Auth0Wrapper>
+          <Outlet />
+        </Auth0Wrapper>
+      </PrimeReactProvider>
     </ClientOnly>
   )
 }
