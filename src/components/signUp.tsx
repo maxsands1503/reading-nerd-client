@@ -1,4 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { Button } from 'primereact/button';
+        
 
 export const SignUp = () => {
     const {
@@ -26,15 +28,15 @@ export const SignUp = () => {
 
       <pre>{JSON.stringify(user, null, 2)}</pre>
 
-      <button onClick={logout}>Logout</button>
+      <Button onClick={logout} label="Logout"/>
     </>
   ) : (
     <>
       {error && <p>Error: {error.message}</p>}
 
-      <button onClick={signup}>Signup</button>
+      <Button onClick={signup} label="Signup"/>
 
-      <button onClick={() => void login()}>Login</button>
+      <Button onClick={() => void login()} label="Login" />
     </>
 );
 
