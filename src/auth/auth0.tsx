@@ -26,7 +26,7 @@ function getSafeReturnTo(appState?: AppState): string {
     return returnTo
   }
 
-  return '/'
+  return '/dashboard'
 }
 
 export function Auth0Wrapper({ children }: { children: React.ReactNode }) {

@@ -12,7 +12,7 @@ function LoginCallback() {
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      void navigate({ to: '/', replace: true })
+      void navigate({ to: '/dashboard', replace: true })
     }
   }, [isAuthenticated, isLoading, navigate])
 
@@ -28,7 +28,7 @@ function LoginCallback() {
         <button
           className="mt-4"
           onClick={() =>
-            void loginWithRedirect({ appState: { returnTo: '/' } })
+            void loginWithRedirect({ appState: { returnTo: '/dashboard' } })
           }
         >
           Try again
@@ -46,7 +46,9 @@ function LoginCallback() {
       <h1 className="text-2xl font-bold">Sign in</h1>
       <button
         className="mt-4"
-        onClick={() => void loginWithRedirect({ appState: { returnTo: '/' } })}
+        onClick={() =>
+          void loginWithRedirect({ appState: { returnTo: '/dashboard' } })
+        }
       >
         Continue to Auth0
       </button>
